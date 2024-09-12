@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Image Caption</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="static/css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="static/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="static/images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="static/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+
+<body class="main-layout">
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src="static/images/loading.gif" alt="#" /></div>
+    </div>
+    <!-- end loader -->
+    <!-- header -->
+    <header>
+        <!-- header inner -->
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo"> <a href="home"><img src="static/images/logo7.jpg" alt="#"></a> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <div class="menu-area">
+                            <div class="limit-box">
+                                <nav class="main-menu">
+                                    <ul class="menu-area-main">
+                                        <li> <a href="home">Home</a> </li>
+                                        <li> <a href="aboutus ">About us</a> </li>
+                                        {% if session['loggedin'] %}
+                                        <li> <a href="ourproject">Our Project</a> </li>
+                                        {% endif %}
+                                        {% if session['admin'] %}
+                                        <li> <a href="users">Users</a> </li>
+                                        {% else %}
+                                        <!-- <li> <a href="contact">Contact us</a> </li> -->
+                                        {% endif %}
+                                        {% if session['loggedin'] %}
+                                        <li> <a href="logout">Logout</a> </li>
+                                        {% else %}
+                                        <li> <a href="login">Login</a> </li>
+                                        {% endif %}
+                                        {% if not session['loggedin']%}
+                                        <li> <a href="register">Register</a> </li>
+                                        {% endif %}
+                                        <!--
+                <li class="mean-last "> <a href="# "><img src="static/images/search_icon.png " alt="# " /></a> </li>
+-->
+                                        <li class="mean-last "> <a href="# "><img src="static/images/top-icon.png "
+                                                    alt="# " /></a> </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end header inner -->
+    </header>
+    <center>
+        <div class="col-md-8">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+    </center>
+    <div class="Contact-bg" style="margin-bottom: 30px">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+                    <div class="abouttitle ">
+                        <h2>Join Today</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content-section col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="row">
+                        <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+                            {{ form.username.label(class="form-control-label") }}
+
+                            {% if form.username.errors %}
+                            {{ form.username(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form.username(class="form-control form-control-lg") }}
+                            {% endif %}
+
+                        </div>
+                        <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+                            {{ form.email.label(class="form-control-label") }}
+                            {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form.email(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+                            {{ form.password.label(class="form-control-label") }}
+                            {% if form.password.errors %}
+                            {{ form.passworrd(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form.password(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+                            {{ form.confirm_password.label(class="form-control-label") }}
+                            {% if form.confirm_password.errors %}
+                            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.confirm_password.errors %}
+                                <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form.confirm_password(class="form-control form-control-lg") }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </fieldset>
+                <center>
+                    <div class="form-control2" style="margin-bottom: 25px">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                </center>
+            </form>
+        </div>
+    </div>
+    <center>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <h6>Already Have an Account?</h6> <a class="ml-2" href="{{ url_for('login') }}" style="display: block">
+                    <h6><u>Sign In</h6>
+                </a>
+            </small>
+        </div>
+    </center>
+
+    <!-- footer -->
+    <footer>
+        <div class="footer ">
+            <div class="container ">
+                <div class="row pdn-top-30 ">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 ">
+                        <ul class="location_icon ">
+                            <li> <img src="static/icon/location.png "> <span>Bangalore<br>India</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 ">
+                        <ul class="location_icon ">
+                            <li> <img src="static/icon/tellephone.png "><span>(+91)798973XXXX<br>(+91)962056XXXX</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 ">
+                        <ul class="location_icon ">
+                            <li> <img src="static/icon/email.png "><span>rohini@gmail.com<br>prajwal@gmail.com</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 ">
+                        <ul class="location_icon ">
+                            <li> <a href="# "><img src="static/icon/facebook.png "></a></li>
+                            <li> <a href="# "><img src="static/icon/Twitter.png "></a></li>
+                            <li> <a href="# "><img src="static/icon/linkedin.png "></a></li>
+                            <li> <a href="# "><img src="static/icon/google+.png "></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end footer -->
+    <!-- Javascript files-->
+    <script src="static/js/jquery.min.js "></script>
+    <script src="static/js/popper.min.js "></script>
+    <script src="static/js/bootstrap.bundle.min.js "></script>
+    <script src="static/js/jquery-3.0.0.min.js "></script>
+    <script src="static/js/plugin.js "></script>
+
+    <!-- sidebar -->
+    <script src="static/js/jquery.mCustomScrollbar.concat.min.js "></script>
+    <script src="static/js/custom.js "></script>
+</body>
+
+</html>
